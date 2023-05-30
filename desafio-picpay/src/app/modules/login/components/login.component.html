@@ -1,0 +1,22 @@
+<div class="d-flex align-items-center justify-content-center vh-100">
+  <form class="custom-container">
+
+    <div class="mb-3">
+      <label for="formGroupExampleInput" class="form-label">Login</label>
+      <input [(ngModel)]="requestLogin.username" name="username" type="text" class="form-control" id="username" placeholder="Insira seu login">
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Senha</label>
+      <input [(ngModel)]="requestLogin.password"  name="password" type="password" class="form-control" id="exampleInputPassword1" [type]="showPassword ? 'text' : 'password'">
+    </div>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="toggleShowPassword()">
+      <label class="form-check-label" for="exampleCheck1">Mostrar senha</label>
+    </div>
+
+    <button (click)="clickLogin()" type="submit" class="btn btn-outline-success me-2">Submit</button>
+
+  </form>
+</div>
