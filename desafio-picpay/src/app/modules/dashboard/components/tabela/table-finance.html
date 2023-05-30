@@ -1,0 +1,84 @@
+<nav class="navbar bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../../../../../assets/img/picpay-logo-1.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      PicPay
+    </a>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="btn btn-outline-success" type="submit">Meu Perfil</button>
+      <button (click)="returnLoginPage()" class="btn btn-outline-danger" type="submit">Sair</button>
+    </div>
+  </div>
+</nav>
+
+<br>
+<p>Nesse App você pode:</p>
+<ul>
+  <li>Listar suas operações financeiras</li>
+  <li>Inserir novas operações</li>
+  <li>Editar suas operações</li>
+  <li>Excluir suas operações</li>
+</ul>
+
+<br>
+
+<form>
+	<div class="mb-3 row">
+		<label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Encontre suas operações:</label>
+		<div class="col-xs-3 col-sm-auto">
+			<input
+				id="table-complete-search"
+				type="text"
+				class="form-control"
+				name="searchTerm"
+				[(ngModel)]="service.searchTerm"
+			/>
+		</div>
+		<span class="col col-form-label" *ngIf="service.loading$ | async">Loading...</span>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col" sortable="location" (sort)="onSort($event)">Local da Compra</th>
+				<th scope="col" sortable="amount" (sort)="onSort($event)">Valor</th>
+				<th scope="col" sortable="tax_coupon" (sort)="onSort($event)">Nota Fiscal</th>
+				<th scope="col" sortable="date" (sort)="onSort($event)">Data</th>
+				<th scope="col" sortable="description" (sort)="onSort($event)">Descrição</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let country of countries$ | async">
+				<th scope="row">{{ country.id }}</th>
+				<td>
+					<img
+						[src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag"
+						class="me-2"
+						style="width: 20px"
+					/>
+					<ngb-highlight [result]="country.location" [term]="service.searchTerm"></ngb-highlight>
+				</td>
+				<td><ngb-highlight [result]="country.amount | number" [term]="service.searchTerm"></ngb-highlight></td>
+				<td><ngb-highlight [result]="country.tax_coupon | number" [term]="service.searchTerm"></ngb-highlight></td>
+				<td><ngb-highlight [result]="country.date" [term]="service.searchTerm"></ngb-highlight></td>
+				<td><ngb-highlight [result]="country.description" [term]="service.searchTerm"></ngb-highlight></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="d-flex justify-content-between p-2">
+		<ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+		</ngb-pagination>
+
+    <button class="btn btn-outline-primary" type="submit">Adicionar Operação</button>
+
+
+		<select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+			<option [ngValue]="5">5 itens por página</option>
+			<option [ngValue]="10">10 itens por página</option>
+			<option [ngValue]="15">15 itens por página</option>
+		</select>
+	</div>
+</form>
