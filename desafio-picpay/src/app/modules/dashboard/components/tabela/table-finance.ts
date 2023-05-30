@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 
 import { InterfaceFinanceObj } from './table-finance.interface';
 import { CountryService } from './finance.service';
-import { SortEvent } from './table-finance.directive';
+import { SortEvent, TableFinanceDirective } from './table-finance.directive';
 import { FormsModule } from '@angular/forms';
 import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { TableFinanceDirective } from './table-finance.directive';
 import { Router } from '@angular/router';
 
 

@@ -1,0 +1,4 @@
+.custom-container {
+  width: 80%; /* Defina a largura desejada */
+  max-width: 400px; /* Defina um valor máximo opcional para evitar que o formulário fique muito largo em telas grandes */
+}
